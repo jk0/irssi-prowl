@@ -27,7 +27,7 @@ $VERSION = "0.0.1";
     name => "irssi-prowl",
     description => "Send Prowl notifications upon new mentions or PMs.",
     license => "Apache License, Version 2.0",
-    url => "http://jk0.org",
+    url => "https://github.com/jk0/irssi-prowl"
 );
 
 sub is_away {
