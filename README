@@ -10,7 +10,7 @@ Installation
 
     git clone git://github.com/jk0/irssi-prowl.git
     cd irssi-prowl
-    ln -s ./irssi-prowl.pl ~/.irssi/scripts/autorun
+    ln -s ~/path/to/irssi-prowl/irssi-prowl.pl ~/.irssi/scripts/autorun/
 
     /script load autorun/irssi-prowl.pl
     /set prowl
