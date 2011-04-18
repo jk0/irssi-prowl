@@ -16,7 +16,7 @@ use strict;
 use warnings;
 
 use Irssi;
-use LWP::UserAgent;
+use LWP::Simple;
 use vars qw($VERSION %IRSSI);
 
 $VERSION = "0.0.1";
@@ -55,20 +55,16 @@ sub msg_private {
 sub send_notification {
     my ($chatnet, $notice) = @_;
     my $prowl_enabled = Irssi::settings_get_bool("prowl_enabled");
-
-    return unless($prowl_enabled);
-
-    my $lwp = LWP::UserAgent->new;
     my $api_key = Irssi::settings_get_str("prowl_api_key");
 
-    $lwp->agent($IRSSI{"name"});
+    return unless($prowl_enabled && length($api_key) > 0);
+
     $notice =~ s/([^A-Za-z0-9])/sprintf("%%%02X", ord($1))/seg;
 
     my $url = sprintf("http://prowlapp.com/publicapi/add?apikey=%s&"
                       . "application=Irssi&event=%s&description=%s",
                       $api_key, $chatnet, $notice);
-    my $request = HTTP::Request->new(GET => $url);
-    $lwp->request($request);
+    get($url);
 }
 
 sub proxy_connect {
