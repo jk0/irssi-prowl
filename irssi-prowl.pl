@@ -25,7 +25,7 @@ $VERSION = "0.0.1";
     authors => "Josh Kearney",
     contact => "josh\@jk0.org",
     name => "irssi-prowl",
-    description => "Send Prowl notifications upon new mentions or PMs.",
+    description => "Send Prowl notifications upon new mentions or PMs when away.",
     license => "Apache License, Version 2.0",
     url => "https://github.com/jk0/irssi-prowl"
 );

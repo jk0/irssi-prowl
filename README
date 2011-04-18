@@ -1,9 +1,9 @@
-irssi-prowl - Send Prowl notifications upon new mentions or PMs.
+irssi-prowl - Send Prowl notifications upon new mentions or PMs when away.
 
 
 Requirements
 
-    - LWP::UserAgent
+    - LWP::Simple
 
 
 Installation
