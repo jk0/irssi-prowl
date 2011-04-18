@@ -54,10 +54,10 @@ sub msg_private {
 
 sub send_notification {
     my ($chatnet, $notice) = @_;
-    my $prowl_enabled = Irssi::settings_get_bool("prowl_enabled");
+    my $enabled = Irssi::settings_get_bool("prowl_enabled");
     my $api_key = Irssi::settings_get_str("prowl_api_key");
 
-    return unless($prowl_enabled && length($api_key) > 0);
+    return unless($enabled && (length($api_key) > 0));
 
     $notice =~ s/([^A-Za-z0-9])/sprintf("%%%02X", ord($1))/seg;
 
