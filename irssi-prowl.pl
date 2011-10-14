@@ -33,22 +33,22 @@ $VERSION = "0.0.1";
 sub is_away {
     my ($server) = @_;
 
-    return $server->{usermode_away} ? 1 : 0;
+    return $server->{usermode_away};
 }
 
 sub msg_public {
-    my ($server, $data, $nick, $mask, $target) = @_;
+    my ($server, $msg, $nick, $mask, $channel) = @_;
 
     if(is_away($server) && ($data =~ /$server->{nick}/i)) {
-        send_notification($server->{chatnet}, "[$target:$nick] $data");
+        send_notification($server->{chatnet}, "[$channel:$nick] $msg");
     }
 }
 
 sub msg_private {
-    my ($server, $text, $nick, $host, $channel) = @_;
+    my ($server, $msg, $nick, $mask, $channel) = @_;
 
     if(is_away($server)) {
-        send_notification($server->{chatnet}, "[$nick] $text");
+        send_notification($server->{chatnet}, "[$nick] $msg");
     }
 }
 
