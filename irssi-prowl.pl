@@ -39,7 +39,7 @@ sub is_away {
 sub msg_public {
     my ($server, $msg, $nick, $mask, $channel) = @_;
 
-    if(is_away($server) && ($data =~ /$server->{nick}/i)) {
+    if(is_away($server) && ($msg =~ /$server->{nick}/i)) {
         send_notification($server->{chatnet}, "[$channel:$nick] $msg");
     }
 }
