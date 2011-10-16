@@ -37,10 +37,16 @@ sub is_away {
 }
 
 sub msg_public {
-    my ($server, $msg, $nick, $mask, $channel) = @_;
+    my ($dest, $text, $stripped) = @_;
+    my $server = $dest->{server};
+    my $channel = $dest->{target};
 
-    if(is_away($server) && ($msg =~ /$server->{nick}/i)) {
-        send_notification($server->{chatnet}, "[$channel:$nick] $msg");
+    my @line = split(/\>/, $stripped, 2);
+    my $nick = substr($line[0], 1);
+    my $message = $line[1];
+
+    if(is_away($server) && $dest->{level} & MSGLEVEL_HILIGHT) {
+        send_notification($server->{chatnet}, "[$channel:$nick]$message");
     }
 }
 
@@ -92,7 +98,7 @@ Irssi::settings_add_str("prowl", "prowl_api_key", "");
 Irssi::settings_add_str("prowl", "prowl_away_msg", "afk");
 Irssi::settings_add_bool("prowl", "prowl_enabled", 0);
 
-Irssi::signal_add_last("message public", "msg_public");
+Irssi::signal_add_last("print text", "msg_public");
 Irssi::signal_add_last("message private", "msg_private");
 Irssi::signal_add_last("proxy client connected", "proxy_connect");
 Irssi::signal_add_last("proxy client disconnected", "proxy_disconnect");
