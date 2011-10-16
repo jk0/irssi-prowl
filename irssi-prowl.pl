@@ -19,7 +19,7 @@ use Irssi;
 use LWP::Simple;
 use vars qw($VERSION %IRSSI);
 
-$VERSION = "0.0.1";
+$VERSION = "0.0.2";
 
 %IRSSI = (
     authors => "Josh Kearney",
