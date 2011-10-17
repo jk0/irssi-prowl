@@ -19,7 +19,7 @@ use Irssi;
 use LWP::Simple;
 use vars qw($VERSION %IRSSI);
 
-$VERSION = "0.0.2";
+$VERSION = "0.0.3";
 
 %IRSSI = (
     authors => "Josh Kearney",
@@ -40,12 +40,13 @@ sub msg_public {
     my ($dest, $text, $stripped) = @_;
     my ($nick, $message) = split(/ +/, $stripped, 2);
 
+    my $level = $dest->{level};
     my $server = $dest->{server};
     my $channel = $dest->{target};
 
     $nick = substr($nick, 1, -1) if $nick;
 
-    if(is_away($server) && ($dest->{level} & MSGLEVEL_HILIGHT) && ($dest->{level} & MSGLEVEL_NOHILIGHT) == 0) {
+    if(is_away($server) && ($level & MSGLEVEL_HILIGHT) && ($level & MSGLEVEL_NOHILIGHT) == 0) {
         send_notification($server->{chatnet}, "[$channel:$nick] $message");
     }
 }
