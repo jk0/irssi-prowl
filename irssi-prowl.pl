@@ -38,15 +38,15 @@ sub is_away {
 
 sub msg_public {
     my ($dest, $text, $stripped) = @_;
+    my ($nick, $message) = split(/ +/, $stripped, 2);
+
     my $server = $dest->{server};
     my $channel = $dest->{target};
 
-    my @line = split(/\>/, $stripped, 2);
-    my $nick = substr($line[0], 1);
-    my $message = $line[1];
+    $nick = substr($nick, 1, -1) if $nick;
 
-    if(is_away($server) && $dest->{level} & MSGLEVEL_HILIGHT) {
-        send_notification($server->{chatnet}, "[$channel:$nick]$message");
+    if(is_away($server) && ($dest->{level} & MSGLEVEL_HILIGHT) && ($dest->{level} & MSGLEVEL_NOHILIGHT) == 0) {
+        send_notification($server->{chatnet}, "[$channel:$nick] $message");
     }
 }
 
